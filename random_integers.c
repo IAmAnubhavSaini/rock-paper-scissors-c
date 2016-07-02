@@ -14,7 +14,7 @@ int generate_random_number(void) {
     return r;
 }
 
-int generate_limited_random_number(int limit) {
+int generateLimitedRandomNumber(int limit) {
     int divisor = RAND_MAX / (limit + 1);
     int number = 0;
     do {

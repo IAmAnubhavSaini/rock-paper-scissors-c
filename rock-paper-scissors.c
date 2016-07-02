@@ -5,67 +5,38 @@
 
 #include <stdio.h>
 #include "random_integers.c"
+#include "RockPaperScissors.h"
 #include <string.h>
 
-typedef enum player_choices PlayerChoice;
-enum player_choices {
-    PC_Random = 0x00,
-    PC_Rock = 0x01,
-    PC_Paper = 0x04,
-    PC_Scissors = 0x10
-};
-
-int choices[4] = {
-    PC_Random,
-    PC_Rock,
-    PC_Paper,
-    PC_Scissors
-};
-
-typedef enum game_results GameResults;
-enum game_results {
-    GR_Unknown,
-    GR_Tie,
-    GR_Player1_Wins,
-    GR_Player2_Wins
-};
-
-PlayerChoice get_player_input(void);
-PlayerChoice get_computer_input(void);
-// To be fired when PC_Random choice has been choosen by player.
-PlayerChoice get_definite_player_choice(void);
-void generate_result(PlayerChoice []);
-char * choice_to_string(PlayerChoice, char *);
-
 void main() {
-    char *choice_str;
-    PlayerChoice human = get_player_input();
-    PlayerChoice computer = get_computer_input();
+    char * choiceString;
+    PlayerChoice human = getPlayerInput();
+    PlayerChoice computer = getComputerInput();
     PlayerChoice choices[2];
     if(human == PC_Random) {
         printf("\nPlayer chose: random,");
-        human = get_definite_player_choice();
-        printf("\nchoosing %s for player.", choice_to_string(human,choice_str));
+        human = getDefinitePlayerChoice();
+        printf("\nchoosing %s for player.", choiceToString(human, choiceString));
     }
     else {
-        printf("\nYou chose: %s", choice_to_string(human, choice_str));
+        printf("\nYou chose: %s", choiceToString(human, choiceString));
     }
 
     if(computer == PC_Random) {
         printf("\nComputer chose: random,");
-        computer = get_definite_player_choice();
-        printf("\nchoosing %s for computer.", choice_to_string(computer,choice_str));
+        computer = getDefinitePlayerChoice();
+        printf("\nchoosing %s for computer.", choiceToString(computer, choiceString));
     }
     else {
-        printf("\nComputer chose: %s", choice_to_string(computer, choice_str));
+        printf("\nComputer chose: %s", choiceToString(computer, choiceString));
     }
 
     choices[0] = human;
     choices[1] = computer;
-    generate_result(choices);
+    generateResult(choices);
 }
 
-PlayerChoice get_player_input(void) {
+PlayerChoice getPlayerInput(void) {
     PlayerChoice choice;
     int userChoice;
 
@@ -84,31 +55,31 @@ PlayerChoice get_player_input(void) {
     return choice;
 }
 
-PlayerChoice get_computer_input(void) {
-    int i = generate_limited_random_number(3);
+PlayerChoice getComputerInput(void) {
+    int i = generateLimitedRandomNumber(3);
     PlayerChoice choice = choices[i];
     return choice;
 }
 
-PlayerChoice get_definite_player_choice(void) {
+PlayerChoice getDefinitePlayerChoice(void) {
     int i;
     PlayerChoice choice;
     do {
-        i = generate_limited_random_number(3);
+        i = generateLimitedRandomNumber(3);
     } while(i == 0);
     choice = choices[i];
     return choice;
     /* Amazingly, whole thing can be written as:
-     * int i; do { i = generate_limited_random_number(3); } while(i!=0); return choices[i];
+     * int i; do { i = generateLimitedRandomNumber(3); } while(i!=0); return choices[i];
      */
 }
 
-void generate_result(PlayerChoice choices[]) {
+void generateResult(PlayerChoice choices[]) {
     PlayerChoice result = choices[0] | choices[1];
-    char * choice_str;
+    char * choiceString;
     /* printf("\nBitwise orred choices- %s | %s = %d",
-     * choice_to_string(choices[0], choice_str),
-     * choice_to_string(choices[1], choice_str),
+     * choiceToString(choices[0], choiceString),
+     * choiceToString(choices[1], choiceString),
      * (int) result);
      */
     switch(result) {
@@ -125,17 +96,17 @@ void generate_result(PlayerChoice choices[]) {
     }
 }
 
-char * choice_to_string(PlayerChoice choice, char * choice_str) {
-    choice_str = (char *)malloc(sizeof(char) * 9);
+char * choiceToString(PlayerChoice choice, char * choiceString) {
+    choiceString = (char *)malloc(sizeof(char) * 9);
     switch(choice) {
     case PC_Random:
-        strcpy(choice_str, "Random\0"); break;
+        strcpy(choiceString, "Random\0"); break;
     case PC_Rock:
-        strcpy(choice_str, "Rock\0"); break;
+        strcpy(choiceString, "Rock\0"); break;
     case PC_Scissors:
-        strcpy(choice_str, "Scissors\0"); break;
+        strcpy(choiceString, "Scissors\0"); break;
     case PC_Paper:
-        strcpy(choice_str, "Paper\0"); break;
+        strcpy(choiceString, "Paper\0"); break;
     }
-    return choice_str;
+    return choiceString;
 }
