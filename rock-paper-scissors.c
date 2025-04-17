@@ -8,9 +8,9 @@
 #include "RockPaperScissors.h"
 #include <string.h>
 
-void main()
+int main()
 {
-    char *choiceString;
+    char *choiceString = (char *)calloc(sizeof(char) * 9, 1);
     PlayerChoice human = getPlayerInput();
     PlayerChoice computer = getComputerInput();
     PlayerChoice choices[2];
@@ -39,6 +39,8 @@ void main()
     choices[0] = human;
     choices[1] = computer;
     generateResult(choices);
+
+    return 0;
 }
 
 PlayerChoice getPlayerInput(void)
@@ -46,7 +48,7 @@ PlayerChoice getPlayerInput(void)
     PlayerChoice choice;
     int userChoice;
 
-    printf("\nYour choices are: 1.Rock 2.Paper 3.Scissors.\nPlease press appropriate digit: ");
+    printf("\nYour choices are: 1.Rock 2.Paper 3.Scissors.\n");
     scanf("%d", &userChoice);
     switch (userChoice)
     {
@@ -90,13 +92,7 @@ PlayerChoice getDefinitePlayerChoice(void)
 
 void generateResult(PlayerChoice choices[])
 {
-    PlayerChoice result = choices[0] | choices[1];
-    char *choiceString;
-    /* printf("\nBitwise orred choices- %s | %s = %d",
-     * choiceToString(choices[0], choiceString),
-     * choiceToString(choices[1], choiceString),
-     * (int) result);
-     */
+    int result = choices[0] | choices[1];
     switch (result)
     {
     case 0x01:
@@ -113,12 +109,18 @@ void generateResult(PlayerChoice choices[])
     case 0x11:
         printf("\nRock wins.");
         break;
+    default:
+        printf("\nERROR: WE SHOULDN'T BE HERE.");
+        exit(1);
     }
 }
 
 char *choiceToString(PlayerChoice choice, char *choiceString)
 {
-    choiceString = (char *)malloc(sizeof(char) * 9);
+    if (NULL == choiceString)
+    {
+        choiceString = (char *)calloc(sizeof(char) * 9, 1);
+    }
     switch (choice)
     {
     case PC_Random:

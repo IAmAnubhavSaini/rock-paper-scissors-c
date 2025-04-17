@@ -5,7 +5,9 @@ You know the older and boring version of rock-paper-scissors-lizard-spock.
 ## build
 
 ```bash
-gcc rock-paper-scissors.c
+gcc -Wall rock-paper-scissors.c
+
+
 ./a.out
 
 Your choices are: 1.Rock 2.Paper 3.Scissors.
