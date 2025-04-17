@@ -13,7 +13,7 @@ int main()
     char *choiceString = (char *)calloc(sizeof(char) * 9, 1);
     PlayerChoice human = getPlayerInput();
     PlayerChoice computer = getComputerInput();
-    PlayerChoice choices[2];
+    PlayerChoice game_choices[2];
     if (human == PC_Random)
     {
         printf("\nPlayer chose: random,");
@@ -36,9 +36,9 @@ int main()
         printf("\nComputer chose: %s", choiceToString(computer, choiceString));
     }
 
-    choices[0] = human;
-    choices[1] = computer;
-    generateResult(choices);
+    game_choices[0] = human;
+    game_choices[1] = computer;
+    generateResult(game_choices);
 
     return 0;
 }
@@ -90,9 +90,9 @@ PlayerChoice getDefinitePlayerChoice(void)
      */
 }
 
-void generateResult(PlayerChoice choices[])
+void generateResult(PlayerChoice currentChoices[])
 {
-    int result = choices[0] | choices[1];
+    int result = (int)(currentChoices[0] | currentChoices[1]);
     switch (result)
     {
     case 0x01:

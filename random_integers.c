@@ -1,9 +1,11 @@
 #include <time.h>
 #include <stdlib.h>
+#include <limits.h>
 
 void initiate_randomness(void)
 {
-    srand(time(NULL));
+    time_t t = time(NULL);
+    srand((unsigned int)(t % (time_t)UINT_MAX));
 }
 
 int generate_random_number(void)

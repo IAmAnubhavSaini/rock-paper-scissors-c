@@ -1,7 +1,6 @@
 #ifndef ROCKPAPERSCISSORS
 #define ROCKPAPERSCISSORS 1
 
-typedef enum player_choices PlayerChoice;
 enum player_choices
 {
     PC_Random = 0x00,
@@ -10,13 +9,14 @@ enum player_choices
     PC_Scissors = 0x10
 };
 
+typedef enum player_choices PlayerChoice;
+
 int choices[4] = {
     PC_Random,
     PC_Rock,
     PC_Paper,
     PC_Scissors};
 
-typedef enum gameResults GameResults;
 enum gameResults
 {
     GR_Unknown,
@@ -24,6 +24,7 @@ enum gameResults
     GR_Player1_Wins,
     GR_Player2_Wins
 };
+typedef enum gameResults GameResults;
 
 PlayerChoice getPlayerInput(void);
 PlayerChoice getComputerInput(void);
