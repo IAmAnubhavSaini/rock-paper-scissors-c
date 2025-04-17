@@ -1,11 +1,13 @@
 #include <time.h>
 #include <stdlib.h>
 
-void initiate_randomness(void) {
+void initiate_randomness(void)
+{
     srand(time(NULL));
 }
 
-int generate_random_number(void) {
+int generate_random_number(void)
+{
 #ifndef INITIATED_RANDOMNESS
     initiate_randomness();
 #define INITIATED_RANDOMNESS
@@ -14,11 +16,13 @@ int generate_random_number(void) {
     return r;
 }
 
-int generateLimitedRandomNumber(int limit) {
+int generateLimitedRandomNumber(int limit)
+{
     int divisor = RAND_MAX / (limit + 1);
     int number = 0;
-    do {
+    do
+    {
         number = rand() / divisor;
-    } while(number > limit);
+    } while (number > limit);
     return number;
 }

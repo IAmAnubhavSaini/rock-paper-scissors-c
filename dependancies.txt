@@ -1,5 +1,0 @@
-dependencies:
-
-github/randomizer-c
-
-I am not sure if we are really dependent on that; since we are anyway using `random_integers.c`.
